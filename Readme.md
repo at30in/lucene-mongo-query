@@ -1,12 +1,12 @@
 
-# monquery
+# Lucene Mongo Query
 
   Lucene-inspired string-based mongodb query language for humans (and ferrets).
 
 ## Installation
 
 ```
-$ npm install monquery
+$ npm install lucene-mongo-query
 ```
 
 ## Why?
