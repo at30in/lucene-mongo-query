@@ -1,7 +1,6 @@
-
 # Lucene Mongo Query
 
-  Lucene-inspired string-based mongodb query language for humans (and ferrets).
+Lucene-inspired string-based mongodb query language for humans (and ferrets).
 
 ## Installation
 
@@ -11,8 +10,8 @@ $ npm install lucene-mongo-query
 
 ## Why?
 
-  1. Nicer UX for the odd search / log filtering
-  2. Writing JSON queries is a PITA
+1. Nicer UX for the odd search / log filtering
+2. Writing JSON queries is a PITA
 
 ## Example
 
@@ -26,47 +25,61 @@ var query = compile(str);
 
 ### Fields
 
-  Specify field names with optional values:
+Specify field names with optional values:
 
 ```js
-level:error
+level: error;
 ```
 
 yields
 
 ```js
-{ level: 'error' }
+{
+  level: 'error';
+}
 ```
 
 ### Booleans
 
-  Omit value to imply __true__:
+Omit value to imply **true**:
 
 ```js
-failed
+failed;
 ```
 
 yields
 
 ```js
-{ failed: true }
+{
+  failed: true;
+}
 ```
 
-  Or specify a boolean-ish value (true, false, yes, no):
+Or specify a boolean-ish value (true, false, yes, no):
 
 ```js
-failed: no
+failed: no;
 ```
 
 yields
 
 ```js
-{ failed: false }
+{
+  failed: false;
+}
+```
+
+### Datetime
+
+Specify field with datetime (ISO-8601) value:
+
+```
+lastmodified < '2020-10-06T18:43:26.000Z'
 ```
 
 ### Operators
 
-  Currently supports __AND__ / __OR__, which may be nested:
+Currently supports **AND** / **OR**, which may be nested:
 
 ```js
 (level:error AND type:"upload failed") OR user.name.first:Tobi
@@ -82,7 +95,7 @@ yields
 
 ### Regular Expressions
 
-  Regexps may be used with the `//` syntax:
+Regexps may be used with the `//` syntax:
 
 ```js
 level:info AND name:/^To/
@@ -96,7 +109,7 @@ yields
 
 ### Patterns
 
-  Wildcards may be used to generate regular expressions:
+Wildcards may be used to generate regular expressions:
 
 ```js
 level:error AND hostname:api-*
@@ -110,4 +123,4 @@ yields
 
 # License
 
-  MIT
+MIT
