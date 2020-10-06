@@ -1,7 +1,7 @@
 {
   "name": "lucene-mongo-query",
   "version": "0.3.0",
-  "repository": "visionmedia/node-monquery",
+  "repository": "at30in/lucene-mongo-query",
   "description": "mongo query language for humans inspired by Lucene",
   "keywords": [
     "lucene",
