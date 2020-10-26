@@ -1,3 +1,7 @@
+# 0.3.2 / 2020-10-06
+
+- Case insensitive for regex query
+
 # 0.3.0 / 2020-10-06
 
 - add datetime value for query

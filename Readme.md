@@ -107,6 +107,16 @@ yields
 { '$and': [ { level: 'info' }, { name: /^To/ } ] }
 ```
 
+case insensitive
+
+```js
+level:info AND name:/^To/i
+```
+
+```js
+{ '$and': [ { level: 'info' }, { name: /^To/i } ] }
+```
+
 ### Patterns
 
 Wildcards may be used to generate regular expressions:
