@@ -1,3 +1,6 @@
+# 0.4.0 / 2021-06-03
+
+- add ObjectId field type
 # 0.3.2 / 2020-10-06
 
 - Case insensitive for regex query

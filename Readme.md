@@ -77,6 +77,14 @@ Specify field with datetime (ISO-8601) value:
 lastmodified < '2020-10-06T18:43:26.000Z'
 ```
 
+### ObjectId
+
+Specify field with $oid json notation value:
+
+```
+companies.id = {"$oid": "60b8f7f90f1aac77ed9db8c1"}
+```
+
 ### Operators
 
 Currently supports **AND** / **OR**, which may be nested:
