@@ -1,5 +1,7 @@
 var query = require('..');
 var assert = require('assert');
+const { read } = require('fs');
+const ObjectID = require('bson-objectid');
 
 describe('fields', function () {
   it('should compile', function () {
@@ -102,5 +104,33 @@ describe('regex with option insensitive', function () {
   it('should compile', function () {
     var ret = query('(hostname:/^regex value.*/i)');
     assert.deepStrictEqual(ret, { hostname: /^regex value.*/i });
+  });
+});
+
+describe('id convert ObjectId', function () {
+  it('single operator ObjectId', function () {
+    const ret = query(`companies.id = {"$oid": "5de937ba34f907002406af7a"}`);
+
+    assert.deepStrictEqual(ret, { 'companies.id': ObjectID('5de937ba34f907002406af7a') });
+  });
+
+  it('ObjectId with others operator', function () {
+    const ret = query(`companies.vat = '00000' OR (companies.id = {"$oid": "5de937ba34f907002406af7a"} AND companies.name = 'name')`);
+
+    let test = {
+      $or: [
+        { 'companies.vat': '00000' },
+        {
+          $and: [
+            {
+              'companies.id': ObjectID('5de937ba34f907002406af7a'),
+            },
+            { 'companies.name': 'name' },
+          ],
+        },
+      ],
+    };
+
+    assert.deepStrictEqual(ret, test);
   });
 });
