@@ -88,6 +88,45 @@ describe('fields', function () {
     });
   });
 
+  it('should support case regex mongo aggregation variable (use $$)', () => {
+    var ret = query.parse('($$companies.name:/^name.*/i)');
+
+    assert.deepStrictEqual(ret, {
+      type: 'field',
+      name: '$regexMatch',
+      value: { input: '$$companies.name', regex: /^name.*/i },
+    });
+  });
+
+  it('should support case regex mongo aggregation variable (use $$) with operator', () => {
+    var ret = query.parse('($$companies.name:/^name.*/i AND $$companies.vat:/^vat.*/i)');
+
+    assert.deepStrictEqual(ret, {
+      type: 'op',
+      op: 'and',
+      left: {
+        type: 'field',
+        name: '$regexMatch',
+        value: { input: '$$companies.name', regex: /^name.*/i },
+      },
+      right: {
+        type: 'field',
+        name: '$regexMatch',
+        value: { input: '$$companies.vat', regex: /^vat.*/i },
+      },
+    });
+  });
+
+  it('should support case mongo aggregation variable (use $$)', () => {
+    var ret = query.parse('($$companies.name:name)');
+
+    assert.deepStrictEqual(ret, {
+      type: 'field',
+      name: '$eq',
+      value: ['$$companies.name', 'name'],
+    });
+  });
+
   it('should support wildcards', function () {
     var ret = query.parse('hostname:api-*');
 

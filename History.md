@@ -1,6 +1,8 @@
+# 0.5.0 / 2021-06-10
+- add support mongo variable ($$) for aggregation query
 # 0.4.0 / 2021-06-03
 
-- add ObjectId field type
+- add support to ObjectId field type
 # 0.3.2 / 2020-10-06
 
 - Case insensitive for regex query

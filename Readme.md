@@ -125,6 +125,23 @@ level:info AND name:/^To/i
 { '$and': [ { level: 'info' }, { name: /^To/i } ] }
 ```
 
+### Create query for mongo variable ($$nameOfVariable)
+
+To generate query with variable in instead of field may be used with the `$$` syntax:
+
+```js
+$$companies.name:/^name.*/i
+```
+
+yields
+
+```js
+{ $regexMatch: {
+    input: '$$companies.name',
+    regex: /^name.*/i,
+}
+```
+
 ### Patterns
 
 Wildcards may be used to generate regular expressions:

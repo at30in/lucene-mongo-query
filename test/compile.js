@@ -81,15 +81,21 @@ describe('comparison', function () {
   });
 
   it('should compile not equal', function () {
-    var ret = query('level!=5');
+    let ret = query('level!=5');
     assert.deepStrictEqual(ret, {
       level: { $ne: 5 },
     });
 
-    var ret = query('level != 5');
+    ret = query('level != 5');
     assert.deepStrictEqual(ret, {
       level: { $ne: 5 },
     });
+
+    ret = query('$$companies.name == name');
+    assert.deepStrictEqual(ret, { $eq: ['$$companies.name', 'name'] });
+
+    ret = query('$$companies.name != name');
+    assert.deepStrictEqual(ret, { $ne: ['$$companies.name', 'name'] });
   });
 
   it('should compile nested', function () {
@@ -104,6 +110,44 @@ describe('regex with option insensitive', function () {
   it('should compile', function () {
     var ret = query('(hostname:/^regex value.*/i)');
     assert.deepStrictEqual(ret, { hostname: /^regex value.*/i });
+  });
+});
+
+describe('regex mongo aggregation variable (use $$)', function () {
+  it('should compile', function () {
+    var ret = query('($$companies.name:/^name.*/i AND $$companies.vat:/^vat.*/i)');
+    assert.deepStrictEqual(ret, {
+      $and: [
+        {
+          $regexMatch: {
+            input: '$$companies.name',
+            regex: /^name.*/i,
+          },
+        },
+        {
+          $regexMatch: {
+            input: '$$companies.vat',
+            regex: /^vat.*/i,
+          },
+        },
+      ],
+    });
+  });
+});
+
+describe('mongo aggregation variable (use $$)', function () {
+  it('should compile', function () {
+    var ret = query('($$companies.name:name AND $$companies.vat:vat)');
+    assert.deepStrictEqual(ret, {
+      $and: [
+        {
+          $eq: ['$$companies.name', 'name'],
+        },
+        {
+          $eq: ['$$companies.vat', 'vat'],
+        },
+      ],
+    });
   });
 });
 
